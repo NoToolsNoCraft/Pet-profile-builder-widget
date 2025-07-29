@@ -174,10 +174,10 @@
           aria-required="true"
         >
           <option value="">Odaberi vrstu</option>
-          <option value="Dog">Pas</option>
-          <option value="Cat">Mačka</option>
-          <option value="Bird">Ptica</option>
-          <option value="Fish">Riba</option>
+          <option value="Pas">Pas</option>
+          <option value="Mačka">Mačka</option>
+          <option value="Ptica">Ptica</option>
+          <option value="Riba">Riba</option>
         </select>
       </div>
       <div class="mb-4">
@@ -244,18 +244,18 @@
   <script>
     // Product recommendations aligned with Pet Centar catalog
     const products = {
-      'Dog-Labrador': [
+      'Pas-Labrador': [
         { name: 'Royal Canin Labrador Retriever Adult 12kg', url: 'https://www.pet-centar.hr/katalog/royal-canin-labrador-retriever-adult-12kg/14397', price: '71.99€' },
         { name: 'FORESTO Ovratnik za pse 70cm', url: 'https://www.pet-centar.hr/katalog/foresto-ovratnik-za-pse-70cm/15545', price: '35.99€' }
       ],
-      'Dog-Beagle': [
+      'Pas-Beagle': [
         { name: 'BRIT Premium by Nature Adult M 15kg', url: 'https://www.pet-centar.hr/katalog/brit-premium-by-nature-adult-m-15kg/15204', price: '49.99€' }
       ],
-      'Cat-Persian': [
+      'Mačka-Persian': [
         { name: 'Canagan Cat Free Run Chicken 4kg', url: 'https://www.pet-centar.hr/katalog/canagan-cat-free-run-chicken-4kg/15987', price: '45.99€' },
         { name: 'FYPRYST Combo Cat 0.5ml', url: 'https://www.pet-centar.hr/katalog/fypryst-combo-cat-0-5ml/15123', price: '12.99€' }
       ],
-      'Cat-Maine Coon': [
+      'Mačka-Maine Coon': [
         { name: 'Royal Canin Maine Coon 10kg', url: 'https://www.pet-centar.hr/katalog/royal-canin-maine-coon-10kg/14392', price: '69.99€' }
       ],
       'default': [
@@ -265,10 +265,10 @@
 
     // Breed suggestions for each pet type
     const breedSuggestions = {
-      'Dog': ['Labrador', 'Beagle', 'Njemački ovčar', 'Zlatni retriver', 'Pudlica'],
-      'Cat': ['Perzijska', 'Maine Coon', 'Sijamska', 'Bengalska', 'Britanska kratkodlaka'],
-      'Bird': ['Papiga', 'Kanarinac', 'Korela', 'Tigrica', 'Ara'],
-      'Fish': ['Zlatna ribica', 'Betta', 'Guppy', 'Neonka', 'Diskus'],
+      'Pas': ['Labrador', 'Beagle', 'Njemački ovčar', 'Zlatni retriver', 'Pudlica'],
+      'Mačka': ['Perzijska', 'Maine Coon', 'Sijamska', 'Bengalska', 'Britanska kratkodlaka'],
+      'Ptica': ['Papiga', 'Kanarinac', 'Korela', 'Tigrica', 'Ara'],
+      'Riba': ['Zlatna ribica', 'Betta', 'Guppy', 'Neonka', 'Diskus'],
       '': []
     };
 
