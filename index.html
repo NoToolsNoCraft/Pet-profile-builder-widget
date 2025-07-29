@@ -15,13 +15,21 @@
       background-color: #ea580c;
     }
     .pet-centar-modal {
-      border: 2px solid #f97316;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%; /* Start off-screen to the right */
+      width: 320px;
+      sm:w-96;
+      height: 100vh;
+      background: white;
+      border-left: 2px solid #f97316;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease-in-out;
+      z-index: 50;
+      overflow-y: auto;
     }
     .pet-centar-modal.open {
-      display: block;
+      right: 0; /* Slide in from the right */
     }
     .paw-icon::before {
       content: '🐾';
@@ -49,7 +57,7 @@
     /* Confirmation dialog styling */
     .confirmation-dialog {
       display: none;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -75,10 +83,68 @@
       padding: 0.5rem 1rem;
       border-radius: 4px;
     }
+    /* Sticky button styling, now positioned at top-right */
+    .sticky-button {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 60;
+    }
+    /* Enhanced remove button styling */
+    .remove-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background-color: #f97316;
+      color: white;
+      border-radius: 50%;
+      border: 1px solid #ea580c;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .remove-button:hover {
+      background-color: #ea580c;
+      transform: scale(1.1);
+    }
+    .remove-button:focus {
+      outline: 2px solid #f97316;
+      outline-offset: 2px;
+    }
+    /* Enhanced close button styling */
+    .close-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background-color: #f97316;
+      color: white;
+      border-radius: 50%;
+      border: 1px solid #ea580c;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .close-button:hover {
+      background-color: #ea580c;
+      transform: scale(1.1);
+    }
+    .close-button:focus {
+      outline: 2px solid #f97316;
+      outline-offset: 2px;
+    }
+    /* Profile container styling to prevent overlap */
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-right: 32px; /* Space for the remove button */
+    }
   </style>
 </head>
 <body>
-  <div class="fixed bottom-4 right-4 z-50" role="region" aria-label="Widget za profil kućnog ljubimca">
+  <div class="sticky-button" role="region" aria-label="Widget za profil kućnog ljubimca">
     <button
       id="toggle-button"
       class="pet-centar-btn text-white p-3 rounded-full shadow-lg flex items-center focus:ring-2 focus:ring-orange-500"
@@ -88,7 +154,7 @@
       <span class="paw-icon"></span>
       Dodaj svog ljubimca
     </button>
-    <div id="pet-profile-modal" class="pet-centar-modal bg-white p-6 mt-2 w-80 sm:w-96 max-h-[80vh] overflow-y-auto" role="dialog" aria-labelledby="pet-profile-title">
+    <div id="pet-profile-modal" class="pet-centar-modal bg-white p-6" role="dialog" aria-labelledby="pet-profile-title">
       <h2 id="pet-profile-title" class="text-xl font-bold mb-4 text-gray-800">Kreiraj profil ljubimca</h2>
       <div class="mb-4">
         <label for="pet-name" class="block text-sm font-medium text-gray-700">Ime ljubimca</label>
@@ -147,7 +213,7 @@
       <div id="error-message" class="error-message" role="alert">Molimo ispunite sva polja.</div>
       <button
         id="close-modal"
-        class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:ring-2 focus:ring-orange-500"
+        class="close-button absolute top-2 right-2"
         aria-label="Zatvori obrazac za profil kućnog ljubimca"
       >
         ✕
@@ -260,7 +326,7 @@
 
         profiles.forEach((profile, index) => {
           const profileDiv = document.createElement('div');
-          profileDiv.className = 'mb-4 border-b pb-2 relative';
+          profileDiv.className = 'mb-4 border-b pb-2 profile-container';
 
           const profileInfo = document.createElement('p');
           profileInfo.className = 'font-bold text-gray-800';
@@ -268,7 +334,7 @@
           profileDiv.appendChild(profileInfo);
 
           const removeButton = document.createElement('button');
-          removeButton.className = 'absolute top-0 right-0 text-gray-500 hover:text-gray-700 focus:ring-2 focus:ring-orange-500';
+          removeButton.className = 'remove-button absolute top-0 right-0';
           removeButton.innerHTML = '✕';
           removeButton.setAttribute('aria-label', `Ukloni ljubimca ${profile.name}`);
           removeButton.addEventListener('click', () => {
@@ -383,5 +449,5 @@
     // Initial render
     renderProfiles();
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966ce74cbb89a900',t:'MTc1Mzc5NTEyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966cec5e5b46bfc5',t:'MTc1Mzc5NTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966cf0fd4f3db093',t:'MTc1Mzc5NTUxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966cf58f2abd5911',t:'MTc1Mzc5NTcwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
